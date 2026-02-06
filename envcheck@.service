@@ -1,0 +1,24 @@
+[Unit]
+Description=envcheck - Dev Environment Version Dashboard
+After=network.target
+
+[Service]
+Type=simple
+User=%i
+# Adjust the path to wherever you install the binary
+ExecStart=/usr/local/bin/envcheck --port 8484 --interval 60s
+Restart=on-failure
+RestartSec=5
+WorkingDirectory=%h
+
+# Load user's shell environment so *env tools are accessible
+# Adjust this path if your shell config is elsewhere
+EnvironmentFile=-%h/.envcheck.env
+
+# Ensure PATH includes common *env tool locations
+Environment="PATH=%h/.pyenv/bin:%h/.goenv/bin:%h/.rbenv/bin:%h/.jenv/bin:%h/.cargo/bin:%h/.nvm:%h/.local/bin:/usr/local/bin:/usr/bin:/bin"
+Environment="HOME=%h"
+Environment="SHELL=/bin/bash"
+
+[Install]
+WantedBy=default.target
