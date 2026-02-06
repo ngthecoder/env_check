@@ -6,7 +6,7 @@ INTERVAL  := 30s
 
 # ───── Build ─────
 build:
-	go build -ldflags="-s -w" -o $(BINARY) ./cmd/main.go
+	go build -ldflags="-w" -o $(BINARY) ./cmd/main.go
 
 # ───── Run ─────
 run: build
